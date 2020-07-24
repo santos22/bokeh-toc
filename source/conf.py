@@ -54,6 +54,8 @@ html_theme = 'alabaster'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+master_doc = 'index'
+
 autodoc_default_flags = ['members']
 
 autosummary_generate = True
