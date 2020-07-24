@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>client.session.ClientSession &#8212; bokeh-toc  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="client.states" href="client.states.html" />
+    <link rel="prev" title="Welcome to bokeh-toc’s documentation!" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="client-session-clientsession">
+<h1>client.session.ClientSession<a class="headerlink" href="#client-session-clientsession" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="client.session.ClientSession">
+<em class="property">class </em><code class="sig-prename descclassname">client.session.</code><code class="sig-name descname">ClientSession</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">websocket_url</span><span class="o">=</span><span class="default_value">util.websocket_url_for_server_url</span></em>, <em class="sig-param"><span class="n">io_loop</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">arguments</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a websocket connection to a server-side session.</p>
+<p>Each server session stores a Document, which is kept in sync with the
+corresponding Document for this <code class="docutils literal notranslate"><span class="pre">ClientSession</span></code> instance. Updates on
+either side of the connection will automatically propagate to the other
+side, as long as the connection is open.</p>
+<p>ClientSession objects can (and usually should) be used as a context manager
+so that the session is properly closed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pull_session</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">app_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">mysession</span><span class="p">:</span>
+    <span class="c1"># customize session here</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="n">server_session</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="n">mysession</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">app_url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;embed.html&quot;</span><span class="p">,</span> <span class="n">script</span><span class="o">=</span><span class="n">script</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;Flask&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you do not use <code class="docutils literal notranslate"><span class="pre">ClientSession</span></code> in this way, it is up to you to ensure
+that <code class="docutils literal notranslate"><span class="pre">mysession.close()</span></code> is called.</p>
+<dl class="py method">
+<dt id="client.session.ClientSession.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">websocket_url</span><span class="o">=</span><span class="default_value">util.websocket_url_for_server_url</span></em>, <em class="sig-param"><span class="n">io_loop</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">arguments</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A connection which attaches to a particular named session on the
+server.</p>
+<p>Always call either pull() or push() immediately after creating the
+session (until these are called <code class="docutils literal notranslate"><span class="pre">session.document</span></code> will be <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p>
+<p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">push_session()</span></code> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">pull_session()</span></code> functions will construct a
+<code class="docutils literal notranslate"><span class="pre">ClientSession</span></code> and push or pull in one step, so they are a good way to
+obtain a <code class="docutils literal notranslate"><span class="pre">ClientSession</span></code>.</p>
+<dl>
+<dt>Args:</dt><dd><dl>
+<dt>session_id (str) :</dt><dd><p>The name of the session or None to generate one</p>
+</dd>
+<dt>websocket_url (str) :</dt><dd><p>Websocket URL to connect to</p>
+</dd>
+<dt>io_loop (IOLoop, optional) :</dt><dd><p>The IOLoop to use for the websocket</p>
+</dd>
+<dt>arguments (dict[str, str], optional) :</dt><dd><p>A dictionary of key/values to be passed as HTTP request
+arguments to Bokeh application code (default: None)</p>
+<p>Note that should only be provided when pulling new sessions.
+If <code class="docutils literal notranslate"><span class="pre">session_id</span></code> is not None, or a session with <code class="docutils literal notranslate"><span class="pre">session_id</span></code>
+already exists, these arguments will have no effect.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.session.ClientSession.__init__" title="client.session.ClientSession.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([session_id, websocket_url, …])</p></td>
+<td><p>A connection which attaches to a particular named session on the server.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.session.ClientSession.close" title="client.session.ClientSession.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>([why])</p></td>
+<td><p>Close the connection to the server.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.session.ClientSession.connect" title="client.session.ClientSession.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a>()</p></td>
+<td><p>Connect to a Bokeh server at the configured URL.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.session.ClientSession.force_roundtrip" title="client.session.ClientSession.force_roundtrip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">force_roundtrip</span></code></a>()</p></td>
+<td><p>Force a round-trip request/reply to the server, sometimes needed to avoid race conditions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.session.ClientSession.pull" title="client.session.ClientSession.pull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pull</span></code></a>()</p></td>
+<td><p>Pull the server’s state and set it as session.document.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.session.ClientSession.push" title="client.session.ClientSession.push"><code class="xref py py-obj docutils literal notranslate"><span class="pre">push</span></code></a>([document])</p></td>
+<td><p>Push the given document to the server and record it as session.document.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.session.ClientSession.request_server_info" title="client.session.ClientSession.request_server_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_server_info</span></code></a>()</p></td>
+<td><p>Ask for information about the server.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.session.ClientSession.show" title="client.session.ClientSession.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>([obj, browser, new])</p></td>
+<td><p>Open a browser displaying this session.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.session.ClientSession.connected" title="client.session.ClientSession.connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected</span></code></a></p></td>
+<td><p>Whether this session is currently connected.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.session.ClientSession.document" title="client.session.ClientSession.document"><code class="xref py py-obj docutils literal notranslate"><span class="pre">document</span></code></a></p></td>
+<td><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code> that will be kept in sync with the corresponding Document on the server.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.session.ClientSession.id" title="client.session.ClientSession.id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id</span></code></a></p></td>
+<td><p>A unique ID for this session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.session.ClientSession.token" title="client.session.ClientSession.token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">token</span></code></a></p></td>
+<td><p>A JWT token to authenticate the session.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="client.session.ClientSession.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">why</span><span class="o">=</span><span class="default_value">'closed'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the connection to the server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.connect">
+<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to a Bokeh server at the configured URL.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.connected">
+<em class="property">property </em><code class="sig-name descname">connected</code><a class="headerlink" href="#client.session.ClientSession.connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this session is currently connected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.document">
+<em class="property">property </em><code class="sig-name descname">document</code><a class="headerlink" href="#client.session.ClientSession.document" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code> that will be kept in sync with
+the corresponding Document on the server.</p>
+<p>This value is initialized when <a class="reference internal" href="#client.session.ClientSession.pull" title="client.session.ClientSession.pull"><code class="xref py py-func docutils literal notranslate"><span class="pre">pull()</span></code></a> or <a class="reference internal" href="#client.session.ClientSession.push" title="client.session.ClientSession.push"><code class="xref py py-func docutils literal notranslate"><span class="pre">push()</span></code></a> succeeds.
+It will be <code class="docutils literal notranslate"><span class="pre">None</span></code> until then.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.force_roundtrip">
+<code class="sig-name descname">force_roundtrip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.force_roundtrip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force a round-trip request/reply to the server, sometimes needed to
+avoid race conditions. Mostly useful for testing.</p>
+<p>Outside of test suites, this method hurts performance and should not be
+needed.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.id">
+<em class="property">property </em><code class="sig-name descname">id</code><a class="headerlink" href="#client.session.ClientSession.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unique ID for this session.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.pull">
+<code class="sig-name descname">pull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.pull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull the server’s state and set it as session.document.</p>
+<p>If this is called more than once, session.document will be the same
+object instance but its contents will be overwritten.</p>
+<p>Automatically calls <a class="reference internal" href="#client.session.ClientSession.connect" title="client.session.ClientSession.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> before pulling.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.push">
+<code class="sig-name descname">push</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">document</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push the given document to the server and record it as session.document.</p>
+<p>If this is called more than once, the Document has to be the same (or None
+to mean “session.document”).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Automatically calls <a class="reference internal" href="#client.session.ClientSession.connect" title="client.session.ClientSession.connect"><code class="xref py py-func docutils literal notranslate"><span class="pre">connect()</span></code></a> before pushing.</p>
+</div>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>document (<code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code>, optional) :</dt><dd><p>The document which will be kept in sync with the server document.
+None to use session.document or create a new document.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.request_server_info">
+<code class="sig-name descname">request_server_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.request_server_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ask for information about the server.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A dictionary of server attributes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">browser</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new</span><span class="o">=</span><span class="default_value">'tab'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.session.ClientSession.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a browser displaying this session.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>obj (LayoutDOM object, optional)<span class="classifier">a Layout (Row/Column),</span></dt><dd><p>Plot or Widget object to display. The object will be added
+to the session’s document.</p>
+</dd>
+<dt>browser (str, optional)<span class="classifier">browser to show with (default: None)</span></dt><dd><p>For systems that support it, the <strong>browser</strong> argument allows
+specifying which browser to display in, e.g. “safari”, “firefox”,
+“opera”, “windows-default” (see the <code class="docutils literal notranslate"><span class="pre">webbrowser</span></code> module
+documentation in the standard lib for more details).</p>
+</dd>
+<dt>new (str, optional)<span class="classifier">new file output mode (default: “tab”)</span></dt><dd><p>For file-based output, opens or raises the browser window
+showing the current output file.  If <strong>new</strong> is ‘tab’, then
+opens a new tab. If <strong>new</strong> is ‘window’, then opens a new window.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.session.ClientSession.token">
+<em class="property">property </em><code class="sig-name descname">token</code><a class="headerlink" href="#client.session.ClientSession.token" title="Permalink to this definition">¶</a></dt>
+<dd><p>A JWT token to authenticate the session.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">bokeh-toc</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">client.session.ClientSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.states.html">client.states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.util.html">client.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.websocket.WebSocketClientConnectionWrapper.html">client.websocket.WebSocketClientConnectionWrapper</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to bokeh-toc’s documentation!</a></li>
+      <li>Next: <a href="client.states.html" title="next chapter">client.states</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, bokeh.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/client/client.session.ClientSession.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to bokeh-toc’s documentation! &#8212; bokeh-toc  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="client.session.ClientSession" href="client/client.session.ClientSession.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-bokeh-toc-s-documentation">
+<h1>Welcome to bokeh-toc’s documentation!<a class="headerlink" href="#welcome-to-bokeh-toc-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-client.__init__"></span><p>Provides client API for connecting to a Bokeh server from a Python
+process.</p>
+<p>The primary uses for the <code class="docutils literal notranslate"><span class="pre">bokeh.client</span></code> are:</p>
+<ul class="simple">
+<li><p>Implementing testing infrastructure around Bokeh applications</p></li>
+<li><p>Creating and customizing specific sessions of a Bokeh application
+running <em>in a Bokeh Server</em>, before passing them to a viewer.</p></li>
+</ul>
+<p>While it is also possible to run Bokeh application code “outside” a Bokeh
+server using <code class="docutils literal notranslate"><span class="pre">bokeh.client</span></code>, this practice is <strong>HIGHLY DISCOURAGED</strong>.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="client/client.session.ClientSession.html#client.session.ClientSession" title="client.session.ClientSession"><code class="xref py py-obj docutils literal notranslate"><span class="pre">client.session.ClientSession</span></code></a>([session_id, …])</p></td>
+<td><p>Represents a websocket connection to a server-side session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="client/client.states.html#module-client.states" title="client.states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">client.states</span></code></a></p></td>
+<td><p>Provide a set of objects to represent different stages of a connection to a Bokeh server.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="client/client.util.html#module-client.util" title="client.util"><code class="xref py py-obj docutils literal notranslate"><span class="pre">client.util</span></code></a></p></td>
+<td><p>Internal utility functions used by <code class="docutils literal notranslate"><span class="pre">bokeh.client</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="client/client.websocket.WebSocketClientConnectionWrapper.html#client.websocket.WebSocketClientConnectionWrapper" title="client.websocket.WebSocketClientConnectionWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">client.websocket.WebSocketClientConnectionWrapper</span></code></a>(socket)</p></td>
+<td><p>Used for compatibility across Tornado versions and to add write_lock</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">bokeh-toc</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="client/client.session.ClientSession.html">client.session.ClientSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client/client.states.html">client.states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client/client.util.html">client.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client/client.websocket.WebSocketClientConnectionWrapper.html">client.websocket.WebSocketClientConnectionWrapper</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="client/client.session.ClientSession.html" title="next chapter">client.session.ClientSession</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, bokeh.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

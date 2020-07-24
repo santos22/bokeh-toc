@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>client.states &#8212; bokeh-toc  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="client.util" href="client.util.html" />
+    <link rel="prev" title="client.session.ClientSession" href="client.session.ClientSession.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-client.states">
+<span id="client-states"></span><h1>client.states<a class="headerlink" href="#module-client.states" title="Permalink to this headline">¶</a></h1>
+<p>Provide a set of objects to represent different stages of a connection
+to a Bokeh server.</p>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.states.CONNECTED_AFTER_ACK" title="client.states.CONNECTED_AFTER_ACK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONNECTED_AFTER_ACK</span></code></a>()</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> connected to a Bokeh server, and has received an ACK from it.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.states.CONNECTED_BEFORE_ACK" title="client.states.CONNECTED_BEFORE_ACK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONNECTED_BEFORE_ACK</span></code></a>()</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> connected to a Bokeh server, but has not yet received an ACK from it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.states.DISCONNECTED" title="client.states.DISCONNECTED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DISCONNECTED</span></code></a>()</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> was connected to a Bokeh server, but is now disconnected.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#client.states.NOT_YET_CONNECTED" title="client.states.NOT_YET_CONNECTED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NOT_YET_CONNECTED</span></code></a>()</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> is not yet connected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#client.states.WAITING_FOR_REPLY" title="client.states.WAITING_FOR_REPLY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WAITING_FOR_REPLY</span></code></a>(reqid)</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> has sent a message to the Bokeh Server which should generate a paired reply, and is waiting for the reply.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="client.states.CONNECTED_AFTER_ACK">
+<em class="property">class </em><code class="sig-prename descclassname">client.states.</code><code class="sig-name descname">CONNECTED_AFTER_ACK</code><a class="headerlink" href="#client.states.CONNECTED_AFTER_ACK" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> connected to a Bokeh server, and has
+received an ACK from it.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="client.states.CONNECTED_BEFORE_ACK">
+<em class="property">class </em><code class="sig-prename descclassname">client.states.</code><code class="sig-name descname">CONNECTED_BEFORE_ACK</code><a class="headerlink" href="#client.states.CONNECTED_BEFORE_ACK" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> connected to a Bokeh server, but has not yet
+received an ACK from it.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="client.states.DISCONNECTED">
+<em class="property">class </em><code class="sig-prename descclassname">client.states.</code><code class="sig-name descname">DISCONNECTED</code><a class="headerlink" href="#client.states.DISCONNECTED" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> was connected to a Bokeh server, but is
+now disconnected.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="client.states.NOT_YET_CONNECTED">
+<em class="property">class </em><code class="sig-prename descclassname">client.states.</code><code class="sig-name descname">NOT_YET_CONNECTED</code><a class="headerlink" href="#client.states.NOT_YET_CONNECTED" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> is not yet connected.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="client.states.WAITING_FOR_REPLY">
+<em class="property">class </em><code class="sig-prename descclassname">client.states.</code><code class="sig-name descname">WAITING_FOR_REPLY</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reqid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.states.WAITING_FOR_REPLY" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">ClientConnection</span></code> has sent a message to the Bokeh Server which
+should generate a paired reply, and is waiting for the reply.</p>
+<dl class="py method">
+<dt id="client.states.WAITING_FOR_REPLY.reply">
+<em class="property">property </em><code class="sig-name descname">reply</code><a class="headerlink" href="#client.states.WAITING_FOR_REPLY.reply" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reply from the server. (<code class="docutils literal notranslate"><span class="pre">None</span></code> until the reply arrives)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="client.states.WAITING_FOR_REPLY.reqid">
+<em class="property">property </em><code class="sig-name descname">reqid</code><a class="headerlink" href="#client.states.WAITING_FOR_REPLY.reqid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The request ID of the originating message.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">bokeh-toc</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="client.session.ClientSession.html">client.session.ClientSession</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">client.states</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.util.html">client.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.websocket.WebSocketClientConnectionWrapper.html">client.websocket.WebSocketClientConnectionWrapper</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="client.session.ClientSession.html" title="previous chapter">client.session.ClientSession</a></li>
+      <li>Next: <a href="client.util.html" title="next chapter">client.util</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, bokeh.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/client/client.states.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
